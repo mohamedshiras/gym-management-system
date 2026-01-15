@@ -4,55 +4,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSP Y ZONE - Premium Gym</title>
+    <title>Muscle Factory - Premium Gym</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
     <style>
         /* Landing Page Specific Styles */
+        :root {
+            --gold: #C9A227;
+            --gold-light: #E8C547;
+            --gold-dark: #A68B1F;
+            --black-pure: #000000;
+            --black-rich: #0a0a0a;
+            --black-light: #141414;
+            --gray-dark: #1a1a1a;
+            --gray-medium: #2a2a2a;
+            --white: #ffffff;
+            --white-muted: #cccccc;
+        }
+
+        body.landing-page {
+            font-family: 'Roboto', sans-serif;
+            background: var(--black-pure);
+        }
+
         .landing-nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 20px 50px;
+            padding: 15px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.8);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 100%);
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
         }
 
         .landing-nav .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--luminous-yellow), var(--dark-yellow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo {
+            height: 70px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(201, 162, 39, 0.3));
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 35px;
             align-items: center;
         }
 
         .nav-links a {
-            color: var(--text-light);
+            color: var(--white);
+            font-family: 'Oswald', sans-serif;
             font-weight: 500;
-            transition: var(--transition);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .nav-links a:hover {
-            color: var(--luminous-yellow);
+        .nav-links a:not(.btn):hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:not(.btn)::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:not(.btn):hover::after {
+            width: 100%;
+        }
+
+        .nav-links .btn-primary {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 25px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links .btn-primary:hover {
+            background: var(--gold);
+            color: var(--black-pure);
+            box-shadow: 0 0 20px rgba(201, 162, 39, 0.5);
         }
 
         .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             overflow: hidden;
+            padding: 100px 20px;
         }
 
         .hero-section::before {
@@ -65,100 +131,236 @@
             background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
-            filter: brightness(0.3);
+            filter: brightness(0.2) saturate(0.8);
+            z-index: -2;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
             z-index: -1;
         }
 
-        .hero-badge {
-            display: inline-block;
-            padding: 10px 25px;
-            background: rgba(255, 234, 0, 0.1);
-            border: 1px solid var(--luminous-yellow);
-            border-radius: 50px;
-            color: var(--luminous-yellow);
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 30px;
-            animation: pulse 2s infinite;
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            z-index: 1;
         }
 
-        @keyframes pulse {
+        .hero-logo {
+            width: 280px;
+            height: auto;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 30px rgba(201, 162, 39, 0.4));
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
 
             0%,
             100% {
-                box-shadow: 0 0 0 0 rgba(255, 234, 0, 0.4);
+                filter: drop-shadow(0 0 20px rgba(201, 162, 39, 0.3));
             }
 
             50% {
-                box-shadow: 0 0 0 15px rgba(255, 234, 0, 0);
+                filter: drop-shadow(0 0 40px rgba(201, 162, 39, 0.6));
             }
         }
 
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: rgba(201, 162, 39, 0.1);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--white-muted);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-buttons .btn {
+            padding: 18px 40px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-buttons .btn-primary {
+            background: var(--gold);
+            color: var(--black-pure);
+            border: 2px solid var(--gold);
+        }
+
+        .hero-buttons .btn-primary:hover {
+            background: var(--gold-light);
+            box-shadow: 0 0 30px rgba(201, 162, 39, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .hero-buttons .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .hero-buttons .btn-secondary:hover {
+            background: var(--white);
+            color: var(--black-pure);
+            transform: translateY(-3px);
+        }
+
         .features-section {
-            padding: 100px 20px;
-            background: var(--dark-gray);
+            padding: 120px 20px;
+            background: linear-gradient(180deg, var(--black-rich) 0%, var(--gray-dark) 100%);
+            position: relative;
+        }
+
+        .features-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
         }
 
         .features-section h2 {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 60px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            color: var(--white);
         }
 
         .features-section h2 span {
-            color: var(--luminous-yellow);
+            color: var(--gold);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--white-muted);
+            font-size: 1.1rem;
+            margin-bottom: 70px;
+            font-weight: 300;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .feature-card {
-            background: var(--medium-gray);
-            padding: 40px 30px;
-            border-radius: 20px;
+            background: linear-gradient(145deg, var(--gray-medium) 0%, var(--black-light) 100%);
+            padding: 50px 35px;
             text-align: center;
-            transition: var(--transition);
-            border: 1px solid var(--light-gray);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(201, 162, 39, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
-            border-color: var(--luminous-yellow);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(201, 162, 39, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(201, 162, 39, 0.1);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
         }
 
         .feature-card .icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 25px;
-            background: linear-gradient(135deg, var(--luminous-yellow), var(--dark-yellow));
-            border-radius: 50%;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 30px;
+            background: linear-gradient(145deg, var(--gold) 0%, var(--gold-dark) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: var(--text-dark);
+            font-size: 2.2rem;
+            color: var(--black-pure);
+            position: relative;
+        }
+
+        .feature-card .icon::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(145deg, var(--gold-light), var(--gold-dark));
+            z-index: -1;
         }
 
         .feature-card h3 {
-            font-size: 1.4rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             margin-bottom: 15px;
+            color: var(--white);
         }
 
         .feature-card p {
-            color: #888;
+            color: var(--white-muted);
             line-height: 1.8;
+            font-weight: 300;
         }
 
         .cta-section {
-            padding: 100px 20px;
+            padding: 120px 20px;
             text-align: center;
-            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
+            background: var(--black-pure);
             position: relative;
             overflow: hidden;
         }
@@ -166,90 +368,539 @@
         .cta-section::before {
             content: '';
             position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255, 234, 0, 0.1) 0%, transparent 70%);
-            top: -250px;
-            right: -250px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201, 162, 39, 0.08) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 25px;
+            color: var(--white);
         }
 
         .cta-section h2 span {
-            color: var(--luminous-yellow);
+            color: var(--gold);
         }
 
         .cta-section p {
-            color: #888;
+            color: var(--white-muted);
             max-width: 600px;
-            margin: 0 auto 40px;
+            margin: 0 auto 50px;
+            font-size: 1.15rem;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .cta-section .btn-primary {
+            background: var(--gold);
+            color: var(--black-pure);
+            border: 2px solid var(--gold);
+            padding: 20px 50px;
+            font-family: 'Oswald', sans-serif;
             font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cta-section .btn-primary:hover {
+            background: transparent;
+            color: var(--gold);
+            box-shadow: 0 0 30px rgba(201, 162, 39, 0.4);
         }
 
         .footer {
-            background: var(--dark-gray);
-            padding: 50px 20px 30px;
-            border-top: 1px solid var(--light-gray);
+            background: var(--gray-dark);
+            padding: 80px 20px 30px;
+            border-top: 1px solid rgba(201, 162, 39, 0.2);
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+            gap: 50px;
             max-width: 1200px;
-            margin: 0 auto 40px;
+            margin: 0 auto 50px;
+        }
+
+        .footer-logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(201, 162, 39, 0.3));
         }
 
         .footer-section h4 {
-            color: var(--luminous-yellow);
-            margin-bottom: 20px;
-            font-size: 1.2rem;
+            font-family: 'Oswald', sans-serif;
+            color: var(--gold);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .footer-section p,
         .footer-section a {
-            color: #888;
-            line-height: 2;
+            color: var(--white-muted);
+            line-height: 2.2;
             display: block;
-            transition: var(--transition);
+            transition: all 0.3s ease;
+            font-weight: 300;
         }
 
         .footer-section a:hover {
-            color: var(--luminous-yellow);
+            color: var(--gold);
+            padding-left: 5px;
         }
 
         .footer-bottom {
             text-align: center;
             padding-top: 30px;
-            border-top: 1px solid var(--light-gray);
-            color: #666;
+            border-top: 1px solid rgba(201, 162, 39, 0.2);
+            color: var(--white-muted);
+            font-weight: 300;
         }
 
         .social-links {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
         .social-links a {
-            width: 45px;
-            height: 45px;
-            background: var(--medium-gray);
-            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border: 1px solid rgba(201, 162, 39, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-light);
+            color: var(--gold);
             font-size: 1.2rem;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
 
         .social-links a:hover {
-            background: var(--luminous-yellow);
-            color: var(--text-dark);
+            background: var(--gold);
+            color: var(--black-pure);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        /* Member Portal Section */
+        .member-portal-section {
+            padding: 120px 20px;
+            background: linear-gradient(180deg, var(--gray-dark) 0%, var(--black-rich) 100%);
+            position: relative;
+        }
+
+        .member-portal-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .member-portal-section h2 {
+            text-align: center;
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .member-portal-section h2 span {
+            color: var(--gold);
+        }
+
+        .portal-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .portal-search-box {
+            display: flex;
+            align-items: center;
+            background: var(--gray-medium);
+            border: 2px solid rgba(201, 162, 39, 0.3);
+            padding: 10px 20px;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .portal-search-box .search-icon {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .portal-search-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--white);
+            font-size: 1.1rem;
+            padding: 15px 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .portal-search-box input::placeholder {
+            color: var(--white-muted);
+        }
+
+        .portal-search-box input:focus {
+            outline: none;
+        }
+
+        .portal-search-box .btn {
+            padding: 15px 30px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 0;
+            background: var(--gold);
+            color: var(--black-pure);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .portal-search-box .btn:hover {
+            background: var(--gold-light);
+            box-shadow: 0 0 20px rgba(201, 162, 39, 0.4);
+        }
+
+        .member-result-container {
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .member-info-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 30px;
+            background: var(--gray-medium);
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+            color: var(--black-pure);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .member-details h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            color: var(--white);
+            margin-bottom: 5px;
+        }
+
+        .member-details p {
+            color: var(--white-muted);
+            margin-bottom: 10px;
+        }
+
+        .training-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(201, 162, 39, 0.2);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .portal-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .portal-card {
+            background: var(--gray-medium);
+            border: 1px solid rgba(201, 162, 39, 0.15);
+            overflow: hidden;
+        }
+
+        .portal-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 25px;
+            background: rgba(201, 162, 39, 0.1);
+            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .portal-card-header i {
+            color: var(--gold);
+            font-size: 1.3rem;
+        }
+
+        .portal-card-header h4 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--white);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .portal-card-body {
+            padding: 25px;
+        }
+
+        .payment-info {
+            margin-bottom: 20px;
+        }
+
+        .payment-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white-muted);
+        }
+
+        .payment-row.balance-row {
+            border-bottom: none;
+            padding-top: 15px;
+            font-weight: 600;
+        }
+
+        .paid-amount {
+            color: #4CAF50;
+        }
+
+        .balance-amount {
+            color: #ff6b6b;
+            font-size: 1.2rem;
+        }
+
+        .balance-amount.no-balance {
+            color: #4CAF50;
+        }
+
+        .payment-status-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .payment-status-badge.paid {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+        }
+
+        .payment-status-badge.partial {
+            background: rgba(255, 193, 7, 0.2);
+            color: #FFC107;
+            border: 1px solid #FFC107;
+        }
+
+        .payment-status-badge.pending {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+        }
+
+        .attendance-stats {
+            display: flex;
+            gap: 30px;
+        }
+
+        .attendance-stat {
+            text-align: center;
+            flex: 1;
+        }
+
+        .attendance-stat .stat-number {
+            display: block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .attendance-stat .stat-label {
+            color: var(--white-muted);
+            font-size: 0.9rem;
+        }
+
+        .attendance-history-section {
+            background: var(--gray-medium);
+            border: 1px solid rgba(201, 162, 39, 0.15);
+            padding: 25px;
+        }
+
+        .attendance-history-section h4 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--white);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .attendance-history-section h4 i {
+            color: var(--gold);
+        }
+
+        .attendance-history-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .attendance-history-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: rgba(201, 162, 39, 0.1);
+            border-left: 3px solid var(--gold);
+        }
+
+        .attendance-history-item i {
+            color: #4CAF50;
+        }
+
+        .attendance-history-item span {
+            color: var(--white-muted);
+            font-size: 0.9rem;
+        }
+
+        .member-not-found {
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .member-not-found i {
+            font-size: 4rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .member-not-found h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .member-not-found p {
+            color: var(--white-muted);
+        }
+
+        .loading-spinner-container {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .loading-spinner-container .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(201, 162, 39, 0.2);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-spinner-container p {
+            color: var(--white-muted);
+        }
+
+        @media (max-width: 768px) {
+            .portal-search-box {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .portal-search-box input {
+                width: 100%;
+                text-align: center;
+            }
+
+            .portal-search-box .btn {
+                width: 100%;
+            }
+
+            .member-info-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .attendance-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .member-portal-section h2 {
+                font-size: 2rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -257,8 +908,8 @@
                 padding: 15px 20px;
             }
 
-            .landing-nav .logo {
-                font-size: 1.3rem;
+            .nav-logo {
+                height: 50px;
             }
 
             .nav-links {
@@ -269,18 +920,27 @@
                 display: none;
             }
 
-            .hero-content h1 {
-                font-size: 2rem;
-                letter-spacing: 2px;
+            .hero-logo {
+                width: 200px;
             }
 
             .hero-content p {
                 font-size: 1rem;
             }
 
+            .hero-buttons .btn {
+                padding: 15px 30px;
+                font-size: 0.9rem;
+            }
+
             .features-section h2,
             .cta-section h2 {
-                font-size: 1.8rem;
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -289,9 +949,10 @@
 <body class="landing-page">
     <!-- Navigation -->
     <nav class="landing-nav">
-        <div class="logo">DSP Y ZONE</div>
+        <div class="logo"><img src="assets/logof.png" alt="Muscle Factory" class="nav-logo"></div>
         <div class="nav-links">
             <a href="#features"><span>Features</span></a>
+            <a href="#member-portal"><span>Member Portal</span></a>
             <a href="#about"><span>About</span></a>
             <a href="login.html" class="btn btn-primary">
                 <i class="fas fa-sign-in-alt"></i>
@@ -305,9 +966,8 @@
         <div class="hero-content">
             <div class="hero-badge">
                 <i class="fas fa-dumbbell"></i>
-                &nbsp;Premium Fitness Experience
+                Premium Fitness Experience
             </div>
-            <h1>DSP Y ZONE</h1>
             <p>Transform your body, transform your life. Join the ultimate fitness destination where dedication meets
                 results.</p>
             <div class="hero-buttons">
@@ -325,7 +985,8 @@
 
     <!-- Features Section -->
     <section class="features-section" id="features">
-        <h2>Why Choose <span>DSP Y ZONE</span></h2>
+        <h2>Why Choose <span>Muscle Factory</span></h2>
+        <p class="section-subtitle">Experience the ultimate gym management system built for modern fitness centers</p>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="icon">
@@ -378,6 +1039,99 @@
         </div>
     </section>
 
+    <!-- Member Portal Section -->
+    <section class="member-portal-section" id="member-portal">
+        <h2>Member <span>Portal</span></h2>
+        <p class="section-subtitle">Check your payment balance and attendance history instantly</p>
+
+        <div class="portal-container">
+            <div class="portal-search-box">
+                <div class="search-icon">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <input type="text" id="memberLookupId" placeholder="Enter your Member ID (e.g., 0001)" maxlength="4">
+                <button id="lookupMemberBtn" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                    Check Status
+                </button>
+            </div>
+
+            <div id="memberResultContainer" class="member-result-container" style="display: none;">
+                <div class="member-info-header">
+                    <div class="member-avatar" id="memberAvatar">U</div>
+                    <div class="member-details">
+                        <h3 id="memberName">Member Name</h3>
+                        <p id="memberIdDisplay">ID: #0000</p>
+                        <span id="memberTrainingType" class="training-badge">Training Type</span>
+                    </div>
+                </div>
+
+                <div class="portal-cards">
+                    <div class="portal-card payment-card">
+                        <div class="portal-card-header">
+                            <i class="fas fa-credit-card"></i>
+                            <h4>Payment Status</h4>
+                        </div>
+                        <div class="portal-card-body">
+                            <div class="payment-info">
+                                <div class="payment-row">
+                                    <span>Monthly Fee:</span>
+                                    <span id="monthlyFee">Rs 0</span>
+                                </div>
+                                <div class="payment-row">
+                                    <span>Paid Amount:</span>
+                                    <span id="paidAmount" class="paid-amount">Rs 0</span>
+                                </div>
+                                <div class="payment-row balance-row">
+                                    <span>Balance Due:</span>
+                                    <span id="balanceDue" class="balance-amount">Rs 0</span>
+                                </div>
+                            </div>
+                            <div id="paymentStatusBadge" class="payment-status-badge">Pending</div>
+                        </div>
+                    </div>
+
+                    <div class="portal-card attendance-card">
+                        <div class="portal-card-header">
+                            <i class="fas fa-calendar-check"></i>
+                            <h4>This Month's Attendance</h4>
+                        </div>
+                        <div class="portal-card-body">
+                            <div class="attendance-stats">
+                                <div class="attendance-stat">
+                                    <span class="stat-number" id="totalAttendance">0</span>
+                                    <span class="stat-label">Days Present</span>
+                                </div>
+                                <div class="attendance-stat">
+                                    <span class="stat-number" id="lastVisit">-</span>
+                                    <span class="stat-label">Last Visit</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attendance-history-section">
+                    <h4><i class="fas fa-history"></i> Recent Attendance History</h4>
+                    <div id="attendanceHistoryList" class="attendance-history-list">
+                        <!-- Attendance history will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="memberNotFound" class="member-not-found" style="display: none;">
+                <i class="fas fa-user-times"></i>
+                <h3>Member Not Found</h3>
+                <p>No member found with the provided ID. Please check and try again.</p>
+            </div>
+
+            <div id="loadingSpinner" class="loading-spinner-container" style="display: none;">
+                <div class="spinner"></div>
+                <p>Loading your information...</p>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta-section" id="about">
         <h2>Ready to <span>Get Started?</span></h2>
@@ -392,7 +1146,7 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h4>DSP Y ZONE</h4>
+                <img src="assets/logof.png" alt="Muscle Factory" class="footer-logo">
                 <p>Your premier fitness destination. We're committed to helping you achieve your fitness goals with
                     state-of-the-art facilities and expert guidance.</p>
                 <div class="social-links">
@@ -410,12 +1164,11 @@
             </div>
             <div class="footer-section">
                 <h4>Contact Info</h4>
-                <p><i class="fas fa-map-marker-alt" style="margin-right: 10px; color: var(--luminous-yellow);"></i>123
+                <p><i class="fas fa-map-marker-alt" style="margin-right: 10px; color: #C9A227;"></i>123
                     Fitness Street, City</p>
-                <p><i class="fas fa-phone" style="margin-right: 10px; color: var(--luminous-yellow);"></i>+1 234 567 890
+                <p><i class="fas fa-phone" style="margin-right: 10px; color: #C9A227;"></i>+1 234 567 890
                 </p>
-                <p><i class="fas fa-envelope"
-                        style="margin-right: 10px; color: var(--luminous-yellow);"></i>info@dspyzone.com</p>
+                <p><i class="fas fa-envelope" style="margin-right: 10px; color: #C9A227;"></i>info@musclefactory.com</p>
             </div>
             <div class="footer-section">
                 <h4>Opening Hours</h4>
@@ -425,11 +1178,30 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 DSP Y ZONE. All rights reserved. | Gym Management System</p>
+            <p>&copy; 2026 Muscle Factory. All rights reserved. | Gym Management System</p>
         </div>
     </footer>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
     <script>
+        // Firebase Configuration for Member Portal
+        const firebaseConfig = {
+            apiKey: "AIzaSyBX_ve1OQfRxeTv_SntGyCfkSQFyZLlci4",
+            authDomain: "dsp-y-zone.firebaseapp.com",
+            projectId: "dsp-y-zone",
+            storageBucket: "dsp-y-zone.firebasestorage.app",
+            messagingSenderId: "228795312076",
+            appId: "1:228795312076:web:7d67685a2724f3e0c55f69",
+            measurementId: "G-4CH7CQGF81"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -453,6 +1225,195 @@
                 nav.style.background = 'rgba(0, 0, 0, 0.8)';
             }
         });
+
+        // Member Portal Functionality
+        document.getElementById('lookupMemberBtn').addEventListener('click', lookupMember);
+        document.getElementById('memberLookupId').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') lookupMember();
+        });
+
+        // Auto-format member ID input
+        document.getElementById('memberLookupId').addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 4) value = value.slice(0, 4);
+            e.target.value = value;
+        });
+
+        async function lookupMember() {
+            const memberIdInput = document.getElementById('memberLookupId');
+            const memberId = memberIdInput.value.trim().padStart(4, '0');
+
+            if (!memberId || memberId === '0000') {
+                alert('Please enter a valid Member ID');
+                return;
+            }
+
+            // Show loading, hide others
+            document.getElementById('loadingSpinner').style.display = 'block';
+            document.getElementById('memberResultContainer').style.display = 'none';
+            document.getElementById('memberNotFound').style.display = 'none';
+
+            try {
+                // Fetch member data
+                const memberDoc = await db.collection('members').doc(memberId).get();
+
+                if (!memberDoc.exists) {
+                    document.getElementById('loadingSpinner').style.display = 'none';
+                    document.getElementById('memberNotFound').style.display = 'block';
+                    return;
+                }
+
+                const memberData = memberDoc.data();
+
+                // Display member info
+                displayMemberInfo(memberId, memberData);
+
+                // Fetch payment info
+                await fetchPaymentInfo(memberId, memberData);
+
+                // Fetch attendance history
+                await fetchAttendanceHistory(memberId);
+
+                // Show results
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('memberResultContainer').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error fetching member data:', error);
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('memberNotFound').style.display = 'block';
+            }
+        }
+
+        function displayMemberInfo(memberId, data) {
+            // Set avatar initials
+            const initials = data.fullName ? data.fullName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) : 'U';
+            document.getElementById('memberAvatar').textContent = initials;
+
+            // Set name and ID
+            document.getElementById('memberName').textContent = data.fullName || 'Member';
+            document.getElementById('memberIdDisplay').textContent = `ID: #${memberId}`;
+
+            // Set training type
+            const trainingType = data.trainingType === 'weight-cardio' ? 'Weight + Cardio' : 'Weight Training';
+            document.getElementById('memberTrainingType').textContent = trainingType;
+        }
+
+        async function fetchPaymentInfo(memberId, memberData) {
+            const currentMonth = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`;
+            const monthlyFee = memberData.monthlyPayment || (memberData.trainingType === 'weight-cardio' ? 2750 : 1750);
+
+            // Fetch payment for current month
+            const paymentSnapshot = await db.collection('payments')
+                .where('memberId', '==', memberId)
+                .where('month', '==', currentMonth)
+                .get();
+
+            let paidAmount = 0;
+            if (!paymentSnapshot.empty) {
+                paidAmount = paymentSnapshot.docs[0].data().amount || 0;
+            }
+
+            const balanceDue = monthlyFee - paidAmount;
+
+            // Update UI
+            document.getElementById('monthlyFee').textContent = `Rs ${monthlyFee.toLocaleString()}`;
+            document.getElementById('paidAmount').textContent = `Rs ${paidAmount.toLocaleString()}`;
+
+            const balanceElement = document.getElementById('balanceDue');
+            balanceElement.textContent = `Rs ${balanceDue.toLocaleString()}`;
+            balanceElement.className = balanceDue <= 0 ? 'balance-amount no-balance' : 'balance-amount';
+
+            // Set status badge
+            const statusBadge = document.getElementById('paymentStatusBadge');
+            if (balanceDue <= 0) {
+                statusBadge.textContent = 'Fully Paid';
+                statusBadge.className = 'payment-status-badge paid';
+            } else if (paidAmount > 0) {
+                statusBadge.textContent = 'Partially Paid';
+                statusBadge.className = 'payment-status-badge partial';
+            } else {
+                statusBadge.textContent = 'Payment Pending';
+                statusBadge.className = 'payment-status-badge pending';
+            }
+        }
+
+        async function fetchAttendanceHistory(memberId) {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const currentMonth = now.getMonth();
+
+            // Get first and last day of current month for filtering
+            const firstDayOfMonth = new Date(currentYear, currentMonth, 1).toISOString().split('T')[0];
+            const today = now.toISOString().split('T')[0];
+
+            // Fetch all attendance documents (we'll filter in memory for the member)
+            const attendanceSnapshot = await db.collection('attendance')
+                .orderBy('date', 'desc')
+                .limit(60) // Get last 60 days of attendance
+                .get();
+
+            let attendanceDates = [];
+            let thisMonthCount = 0;
+            let lastVisitDate = null;
+
+            attendanceSnapshot.forEach(doc => {
+                const data = doc.data();
+                const date = data.date || doc.id;
+
+                // Check if this member is in the attendance list
+                if (data.members && Array.isArray(data.members)) {
+                    const memberEntry = data.members.find(m => m.memberId === memberId);
+                    if (memberEntry) {
+                        attendanceDates.push(date);
+
+                        // Count this month's attendance
+                        if (date >= firstDayOfMonth && date <= today) {
+                            thisMonthCount++;
+                        }
+
+                        // Track last visit
+                        if (!lastVisitDate || date > lastVisitDate) {
+                            lastVisitDate = date;
+                        }
+                    }
+                }
+            });
+
+            // Update attendance stats
+            document.getElementById('totalAttendance').textContent = thisMonthCount;
+
+            // Format last visit date
+            if (lastVisitDate) {
+                const lastDate = new Date(lastVisitDate);
+                const options = { month: 'short', day: 'numeric' };
+                document.getElementById('lastVisit').textContent = lastDate.toLocaleDateString('en-US', options);
+            } else {
+                document.getElementById('lastVisit').textContent = '-';
+            }
+
+            // Display attendance history (last 15 entries)
+            const historyList = document.getElementById('attendanceHistoryList');
+            historyList.innerHTML = '';
+
+            if (attendanceDates.length === 0) {
+                historyList.innerHTML = '<p style="color: var(--white-muted); grid-column: 1/-1; text-align: center;">No attendance records found</p>';
+            } else {
+                attendanceDates.slice(0, 15).forEach(date => {
+                    const d = new Date(date);
+                    const options = { weekday: 'short', month: 'short', day: 'numeric' };
+                    const formattedDate = d.toLocaleDateString('en-US', options);
+
+                    const item = document.createElement('div');
+                    item.className = 'attendance-history-item';
+                    item.innerHTML = `
+                        <i class="fas fa-check-circle"></i>
+                        <span>${formattedDate}</span>
+                    `;
+                    historyList.appendChild(item);
+                });
+            }
+        }
     </script>
 </body>
 
