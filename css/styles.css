@@ -1,13 +1,46 @@
 /* ============================================
-   DSP Y ZONE - GYM MANAGEMENT SYSTEM
+   Muscle Factory - GYM MANAGEMENT SYSTEM
    Theme: Luminous Yellow & Black
    ============================================ */
 
+/* Logo Styles */
+.sidebar-logo {
+    max-width: 250px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.login-logo {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.nav-logo {
+    max-height: 80px;
+    width: auto;
+}
+
+.hero-logo {
+    max-width: 300px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.footer-logo {
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
 /* CSS Variables */
 :root {
-    --primary-yellow: #FFD700;
-    --luminous-yellow: #FFEA00;
+    --primary-yellow: #A68B1F;
+    --luminous-yellow: #A68B1F;
     --dark-yellow: #FFC107;
+    --gold: #C9A227;
+    --gold-light: #E8C547;
+    --gold-dark: #A68B1F;
     --black: #000000;
     --dark-gray: #1a1a1a;
     --medium-gray: #2d2d2d;
@@ -30,11 +63,31 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--black);
     color: var(--text-light);
     min-height: 100vh;
     line-height: 1.6;
+}
+
+/* Typography - Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Oswald', 'Segoe UI', Tahoma, sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.page-header h1,
+.content-header h1,
+.section-header h2 {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 a {
@@ -101,8 +154,11 @@ ul {
     padding: 12px 28px;
     border: none;
     border-radius: 8px;
+    font-family: 'Oswald', sans-serif;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     cursor: pointer;
     transition: var(--transition);
     gap: 8px;
@@ -177,7 +233,11 @@ ul {
 .form-group label {
     display: block;
     margin-bottom: 8px;
+    font-family: 'Oswald', sans-serif;
     font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
     color: var(--luminous-yellow);
 }
 
@@ -188,6 +248,7 @@ ul {
     border: 2px solid var(--light-gray);
     border-radius: 8px;
     color: var(--text-light);
+    font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     transition: var(--transition);
 }
@@ -227,12 +288,56 @@ textarea.form-control {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
     padding: 20px;
+    position: relative;
+    overflow: hidden;
+    background: var(--black);
+}
+
+.login-page::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(166, 139, 31, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(166, 139, 31, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(166, 139, 31, 0.05) 0%, transparent 30%);
+    z-index: -2;
+    animation: slowRotate 60s linear infinite;
+}
+
+@keyframes slowRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.login-page::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%),
+        repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(166, 139, 31, 0.03) 2px,
+            rgba(166, 139, 31, 0.03) 4px);
+    z-index: -1;
 }
 
 .login-container {
-    background: var(--dark-gray);
+    background: rgba(26, 26, 26, 0.95);
     border-radius: 20px;
     padding: 50px;
     width: 100%;
@@ -242,47 +347,98 @@ textarea.form-control {
     border: 1px solid var(--light-gray);
 }
 
+.login-logo-wrapper {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.login-logo-img {
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto 15px;
+    display: block;
+}
+
+.login-logo-wrapper p {
+    font-family: 'Oswald', sans-serif;
+    color: #888;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
 .login-logo {
     text-align: center;
     margin-bottom: 40px;
 }
 
 .login-logo h1 {
+    font-family: 'Oswald', sans-serif;
     font-size: 2.5rem;
-    font-weight: 800;
+    font-weight: 700;
     background: linear-gradient(135deg, var(--luminous-yellow), var(--dark-yellow));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
 }
 
 .login-logo p {
+    font-family: 'Roboto', sans-serif;
     color: #888;
     margin-top: 8px;
     font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .login-form .form-group {
     position: relative;
+    margin-bottom: 20px;
 }
 
-.login-form .form-group i {
+.login-form .form-group>i:first-child {
     position: absolute;
     left: 18px;
     top: 50%;
     transform: translateY(-50%);
     color: var(--luminous-yellow);
+    z-index: 1;
+}
+
+.login-form .password-group {
+    position: relative;
+}
+
+.login-form .password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 2;
+}
+
+.login-form .password-toggle:hover {
+    color: var(--luminous-yellow);
 }
 
 .login-form .form-control {
     padding-left: 50px;
+    padding-right: 50px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .login-form .btn {
     width: 100%;
     margin-top: 20px;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 2px;
 }
 
 .login-footer {
@@ -327,17 +483,19 @@ textarea.form-control {
 }
 
 .sidebar-header h2 {
+    font-family: 'Oswald', sans-serif;
     font-size: 1.8rem;
-    font-weight: 800;
+    font-weight: 700;
     background: linear-gradient(135deg, var(--luminous-yellow), var(--dark-yellow));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 }
 
 .sidebar-header p {
+    font-family: 'Roboto', sans-serif;
     color: #888;
     font-size: 0.8rem;
     margin-top: 5px;
@@ -359,7 +517,9 @@ textarea.form-control {
     border-radius: 10px;
     color: var(--text-light);
     transition: var(--transition);
+    font-family: 'Roboto', sans-serif;
     font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 .nav-link:hover,
@@ -386,7 +546,27 @@ textarea.form-control {
     flex: 1;
     margin-left: 280px;
     min-height: 100vh;
-    background: var(--black);
+    background: linear-gradient(180deg, var(--black) 0%, #0a0a0a 50%, var(--black) 100%);
+    position: relative;
+}
+
+.main-content::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 280px;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 90% 10%, rgba(166, 139, 31, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 10% 90%, rgba(166, 139, 31, 0.03) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.dashboard-content {
+    position: relative;
+    z-index: 1;
 }
 
 /* Top Header */
@@ -403,11 +583,16 @@ textarea.form-control {
 }
 
 .page-title h1 {
+    font-family: 'Oswald', sans-serif;
     font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     color: var(--text-light);
 }
 
 .page-title p {
+    font-family: 'Roboto', sans-serif;
     color: #888;
     font-size: 0.9rem;
 }
@@ -510,12 +695,14 @@ textarea.form-control {
 }
 
 .stat-value {
+    font-family: 'Oswald', sans-serif;
     font-size: 2.5rem;
     font-weight: 700;
     color: var(--text-light);
 }
 
 .stat-label {
+    font-family: 'Roboto', sans-serif;
     color: #888;
     font-size: 0.95rem;
 }
@@ -537,7 +724,11 @@ textarea.form-control {
 }
 
 .card-header h3 {
+    font-family: 'Oswald', sans-serif;
     font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     color: var(--text-light);
 }
 
@@ -565,10 +756,11 @@ textarea.form-control {
 .data-table th {
     background: var(--medium-gray);
     color: var(--luminous-yellow);
+    font-family: 'Oswald', sans-serif;
     font-weight: 600;
     text-transform: uppercase;
     font-size: 0.85rem;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 
 .data-table tr:hover {
@@ -585,6 +777,7 @@ textarea.form-control {
     display: inline-block;
     padding: 5px 12px;
     border-radius: 20px;
+    font-family: 'Roboto', sans-serif;
     font-size: 0.8rem;
     font-weight: 600;
 }
@@ -643,7 +836,11 @@ textarea.form-control {
 }
 
 .modal-header h3 {
+    font-family: 'Oswald', sans-serif;
     font-size: 1.3rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     color: var(--luminous-yellow);
 }
 
