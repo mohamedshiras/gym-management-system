@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedules - DSP Y ZONE</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>DSP Y ZONE</h2>
+                <p>Gym Management</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="members.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            Members
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="attendance.html" class="nav-link">
+                            <i class="fas fa-clipboard-check"></i>
+                            Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="schedules.html" class="nav-link active">
+                            <i class="fas fa-calendar-alt"></i>
+                            Schedules
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admins.html" class="nav-link">
+                            <i class="fas fa-user-shield"></i>
+                            Admins
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="payment.html" class="nav-link">
+                            <i class="fas fa-credit-card"></i>
+                            Payments
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-link" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="page-title">
+                    <h1>Schedule Management</h1>
+                    <p>Create individual schedules for members</p>
+                </div>
+                <div class="header-actions">
+                    <div class="dropdown">
+                        <div class="user-profile" id="userProfileBtn">
+                            <div class="user-avatar" id="userAvatar">A</div>
+                            <span id="userDisplayName">Admin</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="dropdown-menu" id="profileDropdown">
+                            <a href="#" class="dropdown-item" id="dropdownLogout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Search & Filter Bar -->
+                <div class="search-filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="form-control" id="searchInput"
+                            placeholder="Search schedules by member name...">
+                    </div>
+                    <button class="btn btn-primary" id="addScheduleBtn">
+                        <i class="fas fa-calendar-plus"></i>
+                        Add Schedule
+                    </button>
+                </div>
+
+                <!-- Schedules Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-calendar-alt"
+                                style="margin-right: 10px; color: var(--luminous-yellow);"></i>All Schedules</h3>
+                        <span id="scheduleCount" style="color: #888;">0 schedules</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="data-table" id="schedulesTable">
+                                <thead>
+                                    <tr>
+                                        <th>Member</th>
+                                        <th>Title</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="schedulesTableBody">
+                                    <tr>
+                                        <td colspan="7" class="text-center">Loading...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Schedule Modal -->
+    <div class="modal-overlay" id="scheduleModal">
+        <div class="modal" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 id="modalTitle"><i class="fas fa-calendar-plus" style="margin-right: 10px;"></i>Add Schedule</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="scheduleForm">
+                    <input type="hidden" id="scheduleId">
+
+                    <div class="form-group">
+                        <label for="memberId">Select Member *</label>
+                        <select class="form-control" id="memberId" required>
+                            <option value="">-- Select a Member --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="scheduleTitle">Schedule Title *</label>
+                        <input type="text" class="form-control" id="scheduleTitle"
+                            placeholder="e.g., Chest Workout, Cardio Session" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="scheduleDate">Date *</label>
+                            <input type="date" class="form-control" id="scheduleDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="scheduleTime">Time *</label>
+                            <input type="time" class="form-control" id="scheduleTime" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="scheduleType">Workout Type *</label>
+                            <select class="form-control" id="scheduleType" required>
+                                <option value="">-- Select Type --</option>
+                                <option value="strength">Strength Training</option>
+                                <option value="cardio">Cardio</option>
+                                <option value="flexibility">Flexibility</option>
+                                <option value="hiit">HIIT</option>
+                                <option value="crossfit">CrossFit</option>
+                                <option value="yoga">Yoga</option>
+                                <option value="personal">Personal Training</option>
+                                <option value="group">Group Class</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="scheduleDuration">Duration (minutes)</label>
+                            <input type="number" class="form-control" id="scheduleDuration" placeholder="e.g., 60"
+                                value="60">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="scheduleNotes">Notes</label>
+                        <textarea class="form-control" id="scheduleNotes"
+                            placeholder="Additional notes about the workout..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="scheduleStatus">Status</label>
+                        <select class="form-control" id="scheduleStatus">
+                            <option value="scheduled">Scheduled</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveScheduleBtn">
+                    <i class="fas fa-save"></i>
+                    Save Schedule
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 style="color: var(--danger);"><i class="fas fa-exclamation-triangle"
+                        style="margin-right: 10px;"></i>Confirm Delete</h3>
+                <button class="modal-close" id="closeDeleteModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="text-align: center;">Are you sure you want to delete this schedule?</p>
+                <p style="text-align: center; color: var(--danger); margin-top: 15px; font-size: 0.9rem;">This action
+                    cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                    <i class="fas fa-trash"></i>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/schedules.js"></script>
+</body>
+
+</html>

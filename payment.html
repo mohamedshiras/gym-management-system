@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payments - DSP Y ZONE</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .payment-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .payment-stat-card {
+            background: var(--dark-gray);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid var(--light-gray);
+        }
+
+        .payment-stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--luminous-yellow);
+        }
+
+        .payment-stat-card .label {
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .payment-stat-card.success {
+            border-color: rgba(40, 167, 69, 0.5);
+        }
+
+        .payment-stat-card.success .value {
+            color: #28a745;
+        }
+
+        .payment-stat-card.pending {
+            border-color: rgba(255, 193, 7, 0.5);
+        }
+
+        .payment-stat-card.pending .value {
+            color: #ffc107;
+        }
+
+        .payment-stat-card.danger {
+            border-color: rgba(220, 53, 69, 0.5);
+        }
+
+        .payment-stat-card.danger .value {
+            color: #dc3545;
+        }
+
+        .payment-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .payment-badge.paid {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+        }
+
+        .payment-badge.pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .payment-badge.overdue {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+        }
+
+        .payment-badge.partial {
+            background: rgba(255, 152, 0, 0.2);
+            color: #ff9800;
+            animation: pulse-partial 2s infinite;
+        }
+
+        @keyframes pulse-partial {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .training-type-badge {
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .training-type-badge.weight {
+            background: rgba(0, 123, 255, 0.2);
+            color: #007bff;
+        }
+
+        .training-type-badge.cardio {
+            background: rgba(111, 66, 193, 0.2);
+            color: #6f42c1;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 10px 20px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            background: var(--dark-gray);
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-tab:hover {
+            border-color: var(--luminous-yellow);
+        }
+
+        .filter-tab.active {
+            background: var(--luminous-yellow);
+            color: var(--text-dark);
+            border-color: var(--luminous-yellow);
+        }
+
+        .month-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .month-selector select,
+        .month-selector input {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--light-gray);
+            background: var(--dark-gray);
+            color: var(--text-light);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>DSP Y ZONE</h2>
+                <p>Gym Management</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="members.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            Members
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="attendance.html" class="nav-link">
+                            <i class="fas fa-clipboard-check"></i>
+                            Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="schedules.html" class="nav-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            Schedules
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admins.html" class="nav-link">
+                            <i class="fas fa-user-shield"></i>
+                            Admins
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="payment.html" class="nav-link active">
+                            <i class="fas fa-credit-card"></i>
+                            Payments
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-link" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="page-title">
+                    <h1>Payment Management</h1>
+                    <p>Manage member payments</p>
+                </div>
+                <div class="header-actions">
+                    <div class="dropdown">
+                        <div class="user-profile" id="userProfileBtn">
+                            <div class="user-avatar" id="userAvatar">A</div>
+                            <span id="userDisplayName">Admin</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="dropdown-menu" id="profileDropdown">
+                            <a href="#" class="dropdown-item" id="dropdownLogout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Payment Stats -->
+                <div class="payment-stats">
+                    <div class="payment-stat-card">
+                        <div class="value" id="totalExpectedRevenue">Rs 0</div>
+                        <div class="label">Expected Monthly Revenue</div>
+                    </div>
+                    <div class="payment-stat-card success">
+                        <div class="value" id="totalCollected">Rs 0</div>
+                        <div class="label">Collected This Month</div>
+                    </div>
+                    <div class="payment-stat-card pending">
+                        <div class="value" id="totalPending">Rs 0</div>
+                        <div class="label">Pending Payments</div>
+                    </div>
+                    <div class="payment-stat-card danger">
+                        <div class="value" id="overdueCount">0</div>
+                        <div class="label">Overdue Payments</div>
+                    </div>
+                </div>
+
+                <!-- Month Selector -->
+                <div class="month-selector">
+                    <label for="monthSelect" style="color: var(--luminous-yellow);">Select Month:</label>
+                    <input type="month" class="form-control" id="monthSelect" style="width: auto;">
+                    <button class="btn btn-primary" id="filterBtn">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">All Members</button>
+                    <button class="filter-tab" data-filter="paid">Paid</button>
+                    <button class="filter-tab" data-filter="pending">Pending</button>
+                    <button class="filter-tab" data-filter="overdue">Overdue</button>
+                </div>
+
+                <!-- Payments Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-credit-card"
+                                style="margin-right: 10px; color: var(--luminous-yellow);"></i>Member Payments</h3>
+                        <div class="search-box" style="max-width: 300px;">
+                            <i class="fas fa-search"></i>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search members...">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="data-table" id="paymentsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Member ID</th>
+                                        <th>Name</th>
+                                        <th>Training Type</th>
+                                        <th>Monthly Fee</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="paymentsTableBody">
+                                    <tr>
+                                        <td colspan="6" class="text-center">Loading...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Record Payment Modal -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-money-bill-wave" style="margin-right: 10px;"></i>Record Payment</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="member-payment-info" id="memberPaymentInfo">
+                    <!-- Member info will be loaded here -->
+                </div>
+                <form id="paymentForm">
+                    <input type="hidden" id="paymentMemberId">
+                    <input type="hidden" id="paymentMonth">
+
+                    <div class="form-group">
+                        <label for="paymentAmount">Amount (Rs) *</label>
+                        <input type="number" class="form-control" id="paymentAmount" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paymentDate">Payment Date *</label>
+                        <input type="date" class="form-control" id="paymentDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paymentMethod">Payment Method</label>
+                        <select class="form-control" id="paymentMethod">
+                            <option value="cash">Cash</option>
+                            <option value="upi">UPI</option>
+                            <option value="card">Card</option>
+                            <option value="bank-transfer">Bank Transfer</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paymentNote">Notes (Optional)</label>
+                        <textarea class="form-control" id="paymentNote"
+                            placeholder="Any additional notes..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="savePaymentBtn">
+                    <i class="fas fa-save"></i>
+                    Record Payment
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Payment History Modal -->
+    <div class="modal-overlay" id="historyModal">
+        <div class="modal" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-history" style="margin-right: 10px;"></i>Payment History</h3>
+                <button class="modal-close" id="closeHistoryModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="paymentHistoryContent">
+                    <!-- Payment history will be loaded here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="closeHistoryBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/payment.js"></script>
+</body>
+
+</html>

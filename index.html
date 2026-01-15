@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSP Y ZONE - Premium Gym</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Landing Page Specific Styles */
+        .landing-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .landing-nav .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--luminous-yellow), var(--dark-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--luminous-yellow);
+        }
+
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.3);
+            z-index: -1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            background: rgba(255, 234, 0, 0.1);
+            border: 1px solid var(--luminous-yellow);
+            border-radius: 50px;
+            color: var(--luminous-yellow);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 234, 0, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 15px rgba(255, 234, 0, 0);
+            }
+        }
+
+        .features-section {
+            padding: 100px 20px;
+            background: var(--dark-gray);
+        }
+
+        .features-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+        }
+
+        .features-section h2 span {
+            color: var(--luminous-yellow);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--medium-gray);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--light-gray);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--luminous-yellow);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card .icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, var(--luminous-yellow), var(--dark-yellow));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--text-dark);
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #888;
+            line-height: 1.8;
+        }
+
+        .cta-section {
+            padding: 100px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 234, 0, 0.1) 0%, transparent 70%);
+            top: -250px;
+            right: -250px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section h2 span {
+            color: var(--luminous-yellow);
+        }
+
+        .cta-section p {
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            background: var(--dark-gray);
+            padding: 50px 20px 30px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section h4 {
+            color: var(--luminous-yellow);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #888;
+            line-height: 2;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--luminous-yellow);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--light-gray);
+            color: #666;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: var(--medium-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--luminous-yellow);
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 768px) {
+            .landing-nav {
+                padding: 15px 20px;
+            }
+
+            .landing-nav .logo {
+                font-size: 1.3rem;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links span {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .features-section h2,
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="landing-page">
+    <!-- Navigation -->
+    <nav class="landing-nav">
+        <div class="logo">DSP Y ZONE</div>
+        <div class="nav-links">
+            <a href="#features"><span>Features</span></a>
+            <a href="#about"><span>About</span></a>
+            <a href="login.html" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i>
+                Admin Login
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-dumbbell"></i>
+                &nbsp;Premium Fitness Experience
+            </div>
+            <h1>DSP Y ZONE</h1>
+            <p>Transform your body, transform your life. Join the ultimate fitness destination where dedication meets
+                results.</p>
+            <div class="hero-buttons">
+                <a href="login.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Admin Portal
+                </a>
+                <a href="#features" class="btn btn-secondary btn-lg">
+                    <i class="fas fa-info-circle"></i>
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <h2>Why Choose <span>DSP Y ZONE</span></h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Member Management</h3>
+                <p>Easily manage all gym members with detailed profiles including health information, contact details,
+                    and membership status.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <h3>Personal Schedules</h3>
+                <p>Create individualized workout schedules for each member, track their progress, and help them achieve
+                    their fitness goals.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Secure Admin Access</h3>
+                <p>Multi-admin support with secure authentication. Manage your team and control access to the gym
+                    management system.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">
+                    <i class="fas fa-notes-medical"></i>
+                </div>
+                <h3>Health Tracking</h3>
+                <p>Keep track of member health metrics including height, weight, BMI, and important medical notes for
+                    safe training.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Dashboard Analytics</h3>
+                <p>Get quick insights with a comprehensive dashboard showing total members, active schedules, and more
+                    at a glance.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Mobile Friendly</h3>
+                <p>Access the admin panel from any device. Fully responsive design ensures smooth experience on tablets
+                    and phones.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="about">
+        <h2>Ready to <span>Get Started?</span></h2>
+        <p>Access the admin portal to start managing your gym members and create personalized workout schedules.</p>
+        <a href="login.html" class="btn btn-primary btn-lg">
+            <i class="fas fa-arrow-right"></i>
+            Go to Admin Portal
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>DSP Y ZONE</h4>
+                <p>Your premier fitness destination. We're committed to helping you achieve your fitness goals with
+                    state-of-the-art facilities and expert guidance.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="#features">Features</a>
+                <a href="#about">About Us</a>
+                <a href="login.html">Admin Login</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p><i class="fas fa-map-marker-alt" style="margin-right: 10px; color: var(--luminous-yellow);"></i>123
+                    Fitness Street, City</p>
+                <p><i class="fas fa-phone" style="margin-right: 10px; color: var(--luminous-yellow);"></i>+1 234 567 890
+                </p>
+                <p><i class="fas fa-envelope"
+                        style="margin-right: 10px; color: var(--luminous-yellow);"></i>info@dspyzone.com</p>
+            </div>
+            <div class="footer-section">
+                <h4>Opening Hours</h4>
+                <p>Monday - Friday: 5:00 AM - 11:00 PM</p>
+                <p>Saturday: 6:00 AM - 10:00 PM</p>
+                <p>Sunday: 7:00 AM - 8:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 DSP Y ZONE. All rights reserved. | Gym Management System</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.landing-nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                nav.style.background = 'rgba(0, 0, 0, 0.8)';
+            }
+        });
+    </script>
+</body>
+
+</html>

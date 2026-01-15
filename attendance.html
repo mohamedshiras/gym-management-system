@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance - DSP Y ZONE</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .attendance-input-section {
+            background: var(--dark-gray);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 2px solid var(--luminous-yellow);
+        }
+
+        .attendance-input-section h3 {
+            color: var(--luminous-yellow);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .attendance-form {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .attendance-form .form-group {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 0;
+        }
+
+        .today-date {
+            font-size: 1.2rem;
+            color: var(--luminous-yellow);
+            margin-bottom: 20px;
+        }
+
+        .today-date span {
+            background: var(--medium-gray);
+            padding: 8px 15px;
+            border-radius: 8px;
+            margin-left: 10px;
+        }
+
+        .pending-payment-badge {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            animation: pulse-warning 2s infinite;
+        }
+
+        .paid-badge {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        @keyframes pulse-warning {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        .attendance-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .attendance-stat-card {
+            background: var(--dark-gray);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--light-gray);
+        }
+
+        .attendance-stat-card .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--luminous-yellow);
+        }
+
+        .attendance-stat-card .label {
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .member-attendance-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--medium-gray);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+
+        .member-attendance-item:hover {
+            background: var(--light-gray);
+        }
+
+        .member-attendance-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .member-attendance-info .member-id {
+            background: var(--luminous-yellow);
+            color: var(--text-dark);
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .check-in-time {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .date-picker-section {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .date-picker-section .form-group {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>DSP Y ZONE</h2>
+                <p>Gym Management</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="members.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            Members
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="attendance.html" class="nav-link active">
+                            <i class="fas fa-clipboard-check"></i>
+                            Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="schedules.html" class="nav-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            Schedules
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admins.html" class="nav-link">
+                            <i class="fas fa-user-shield"></i>
+                            Admins
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="payment.html" class="nav-link">
+                            <i class="fas fa-credit-card"></i>
+                            Payments
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-link" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="page-title">
+                    <h1>Attendance Management</h1>
+                    <p>Track daily gym attendance</p>
+                </div>
+                <div class="header-actions">
+                    <div class="dropdown">
+                        <div class="user-profile" id="userProfileBtn">
+                            <div class="user-avatar" id="userAvatar">A</div>
+                            <span id="userDisplayName">Admin</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="dropdown-menu" id="profileDropdown">
+                            <a href="#" class="dropdown-item" id="dropdownLogout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Today's Date Display -->
+                <div class="today-date">
+                    <i class="fas fa-calendar-day"></i>
+                    Today: <span id="todayDateDisplay"></span>
+                </div>
+
+                <!-- Mark Attendance Section -->
+                <div class="attendance-input-section">
+                    <h3><i class="fas fa-user-check"></i> Mark Attendance</h3>
+                    <div class="attendance-form">
+                        <div class="form-group">
+                            <label for="memberIdInput">Member ID</label>
+                            <input type="text" class="form-control" id="memberIdInput"
+                                placeholder="Enter Member ID (e.g., 0001)" maxlength="4"
+                                style="font-size: 1.2rem; letter-spacing: 3px; text-align: center;">
+                        </div>
+                        <button class="btn btn-primary btn-lg" id="markAttendanceBtn">
+                            <i class="fas fa-check"></i>
+                            Mark Present
+                        </button>
+                    </div>
+                    <p style="color: #888; margin-top: 15px; font-size: 0.9rem;">
+                        <i class="fas fa-info-circle"></i> Enter the 4-digit member ID and press Enter or click the
+                        button
+                    </p>
+                </div>
+
+                <!-- Attendance Stats -->
+                <div class="attendance-stats">
+                    <div class="attendance-stat-card">
+                        <div class="value" id="todayAttendanceCount">0</div>
+                        <div class="label">Present Today</div>
+                    </div>
+                    <div class="attendance-stat-card">
+                        <div class="value" id="totalMembersCount">0</div>
+                        <div class="label">Total Members</div>
+                    </div>
+                    <div class="attendance-stat-card">
+                        <div class="value" id="attendancePercentage">0%</div>
+                        <div class="label">Attendance Rate</div>
+                    </div>
+                </div>
+
+                <!-- View Attendance by Date -->
+                <div class="card" style="margin-bottom: 30px;">
+                    <div class="card-header">
+                        <h3><i class="fas fa-history"
+                                style="margin-right: 10px; color: var(--luminous-yellow);"></i>View Attendance by Date
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="date-picker-section">
+                            <div class="form-group">
+                                <label for="attendanceDatePicker">Select Date</label>
+                                <input type="date" class="form-control" id="attendanceDatePicker">
+                            </div>
+                            <button class="btn btn-secondary" id="fetchAttendanceBtn">
+                                <i class="fas fa-search"></i>
+                                Fetch Attendance
+                            </button>
+                            <button class="btn btn-primary" id="showTodayBtn">
+                                <i class="fas fa-calendar-day"></i>
+                                Show Today
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Today's Attendance List -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-clipboard-list"
+                                style="margin-right: 10px; color: var(--luminous-yellow);"></i>
+                            <span id="attendanceListTitle">Today's Attendance</span>
+                        </h3>
+                        <span id="attendanceCount" style="color: #888;">0 members present</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="attendanceList">
+                            <!-- Attendance items will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Remove Attendance Confirmation Modal -->
+    <div class="modal-overlay" id="removeModal">
+        <div class="modal" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 style="color: var(--warning);"><i class="fas fa-exclamation-triangle"
+                        style="margin-right: 10px;"></i>Remove Attendance</h3>
+                <button class="modal-close" id="closeRemoveModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="text-align: center;">Are you sure you want to remove attendance for this member?</p>
+                <p style="text-align: center; color: var(--luminous-yellow); margin-top: 10px; font-size: 1.2rem;"
+                    id="removeMemberInfo"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelRemoveBtn">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmRemoveBtn">
+                    <i class="fas fa-trash"></i>
+                    Remove
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Balance Alert Modal -->
+    <div class="modal-overlay" id="paymentAlertModal">
+        <div class="modal" style="max-width: 450px;">
+            <div class="modal-header" style="background: linear-gradient(135deg, #dc3545, #c82333);">
+                <h3 style="color: #fff;"><i class="fas fa-exclamation-circle" style="margin-right: 10px;"></i>Payment
+                    Due!</h3>
+                <button class="modal-close" onclick="closePaymentAlertModal()" style="color: #fff;">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align: center; padding: 30px;">
+                <div style="font-size: 4rem; color: #dc3545; margin-bottom: 20px;">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <h3 style="margin-bottom: 10px;">Attendance Marked Successfully!</h3>
+                <p style="color: #888; margin-bottom: 20px;">But this member has a pending payment:</p>
+
+                <div
+                    style="background: var(--dark-gray); border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 2px solid #dc3545;">
+                    <div style="font-size: 1.2rem; margin-bottom: 10px;">
+                        <strong id="alertMemberName"></strong>
+                        <span style="color: var(--luminous-yellow);" id="alertMemberId"></span>
+                    </div>
+                    <p id="alertSubtitle" style="color: #888; margin-bottom: 5px; font-size: 0.9rem;">Full payment
+                        pending:</p>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #dc3545;" id="alertPaymentAmount">Rs 0</div>
+                    <div style="color: #888; margin-top: 5px;">Due for <span id="alertPaymentMonth"></span></div>
+                </div>
+
+                <p style="color: #ffc107; font-size: 0.9rem;">
+                    <i class="fas fa-info-circle"></i> Please remind the member to clear their dues.
+                </p>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button type="button" class="btn btn-secondary" onclick="closePaymentAlertModal()">
+                    <i class="fas fa-check"></i> Got it
+                </button>
+                <a href="payment.html" class="btn btn-primary">
+                    <i class="fas fa-credit-card"></i> Go to Payments
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/attendance.js"></script>
+</body>
+
+</html>

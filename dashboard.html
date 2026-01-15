@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - DSP Y ZONE</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>DSP Y ZONE</h2>
+                <p>Gym Management</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link active">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="members.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            Members
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="attendance.html" class="nav-link">
+                            <i class="fas fa-clipboard-check"></i>
+                            Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="schedules.html" class="nav-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            Schedules
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admins.html" class="nav-link">
+                            <i class="fas fa-user-shield"></i>
+                            Admins
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="payment.html" class="nav-link">
+                            <i class="fas fa-credit-card"></i>
+                            Payments
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-link" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="page-title">
+                    <h1>Dashboard</h1>
+                    <p>Welcome back, <span id="adminName">Admin</span></p>
+                </div>
+                <div class="header-actions">
+                    <div class="dropdown">
+                        <div class="user-profile" id="userProfileBtn">
+                            <div class="user-avatar" id="userAvatar">A</div>
+                            <span id="userDisplayName">Admin</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="dropdown-menu" id="profileDropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" id="dropdownLogout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-value" id="totalMembers">0</div>
+                                <div class="stat-label">Total Members</div>
+                            </div>
+                            <div class="stat-icon yellow">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-value" id="activeMembers">0</div>
+                                <div class="stat-label">Active Members</div>
+                            </div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-value" id="todaySchedules">0</div>
+                                <div class="stat-label">Today's Schedules</div>
+                            </div>
+                            <div class="stat-icon blue">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-value" id="totalAdmins">0</div>
+                                <div class="stat-label">Total Admins</div>
+                            </div>
+                            <div class="stat-icon red">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <h3 style="margin-bottom: 20px; color: var(--luminous-yellow);">Quick Actions</h3>
+                <div class="quick-actions">
+                    <a href="members.html?action=add" class="quick-action-card">
+                        <i class="fas fa-user-plus"></i>
+                        <h4>Add Member</h4>
+                        <p>Register a new gym member</p>
+                    </a>
+                    <a href="attendance.html" class="quick-action-card">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h4>Mark Attendance</h4>
+                        <p>Record daily attendance</p>
+                    </a>
+                    <a href="schedules.html?action=add" class="quick-action-card">
+                        <i class="fas fa-calendar-plus"></i>
+                        <h4>Create Schedule</h4>
+                        <p>Add workout schedule</p>
+                    </a>
+                    <a href="members.html" class="quick-action-card">
+                        <i class="fas fa-search"></i>
+                        <h4>Find Member</h4>
+                        <p>Search member details</p>
+                    </a>
+                </div>
+
+                <!-- Recent Members -->
+                <div class="card" style="margin-top: 30px;">
+                    <div class="card-header">
+                        <h3><i class="fas fa-clock"
+                                style="margin-right: 10px; color: var(--luminous-yellow);"></i>Recent Members</h3>
+                        <a href="members.html" class="btn btn-secondary btn-sm">View All</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="data-table" id="recentMembersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th>Joined Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentMembersBody">
+                                    <tr>
+                                        <td colspan="4" class="text-center">Loading...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>
